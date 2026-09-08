@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+:root {
+  --signal-bg: #ffffff;
+  --signal-rail: #f3f3f3;
+  --signal-panel: #ffffff;
+  --signal-chat: #f6f6f6;
+  --signal-search: #ececec;
+  --signal-hover: #f4f4f4;
+  --signal-selected: #ececec;
+  --signal-border: #e6e6e6;
+  --signal-text: #1b1b1b;
+  --signal-muted: #6b6b6b;
+  --signal-blue: #3a76f0;
+  --signal-bubble-in: #e9e9e9;
+  --signal-composer: #ffffff;
+  --signal-icon: #5e5e5e;
+  --signal-rail-hover: #e8e8e8;
+  --signal-rail-active: #e4e4e4;
+  --signal-tooltip-bg: #2f2f2f;
+  --signal-tooltip-text: #f5f5f5;
+  --signal-quote-in-bg: #dedede;
+  --background: #ffffff;
+  --foreground: #1b1b1b;
+}
+
+[data-theme="dark"] {
+  --signal-bg: #1e1e1e;
+  --signal-rail: #1a1a1a;
+  --signal-panel: #2a2a2a;
+  --signal-chat: #1a1a1a;
+  --signal-search: #2c2c2c;
+  --signal-hover: #333333;
+  --signal-selected: #3a3a3a;
+  --signal-border: #3d3d3d;
+  --signal-text: #f0f0f0;
+  --signal-muted: #9a9a9a;
+  --signal-blue: #3a76f0;
+  --signal-bubble-in: #2c2c2c;
+  --signal-composer: #2e2e2e;
+  --signal-icon: #c8c8c8;
+  --signal-rail-hover: #2e2e2e;
+  --signal-rail-active: #3a3a3a;
+  --signal-tooltip-bg: #3c3c3c;
+  --signal-tooltip-text: #f5f5f5;
+  --signal-quote-in-bg: #242424;
+  --background: #1e1e1e;
+  --foreground: #f0f0f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+}
+
+html,
+body {
+  height: 100%;
+  background: var(--signal-bg);
+  color: var(--signal-text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+.icon-btn {
+  display: inline-flex;
+  height: 2rem;
+  width: 2rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: var(--signal-icon);
+}
+
+.icon-btn:hover {
+  background: var(--signal-hover);
+}
+
+.rail-btn {
+  display: inline-flex;
+  height: 2.25rem;
+  width: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: var(--signal-icon);
+}
+
+.rail-btn:hover {
+  background: var(--signal-rail-hover);
+}
+
+.rail-btn-active {
+  background: var(--signal-rail-active);
+  color: var(--signal-text);
+}
+
+.rail-tip {
+  position: relative;
+}
+
+.rail-tip::after {
+  content: attr(data-tip);
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 10px);
+  z-index: 40;
+  transform: translateY(-50%);
+  border-radius: 6px;
+  background: var(--signal-tooltip-bg);
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--signal-tooltip-text);
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 22%);
+  transition: opacity 80ms ease;
+}
+
+.rail-tip::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 4px);
+  z-index: 41;
+  width: 0;
+  height: 0;
+  transform: translateY(-50%);
+  border-top: 5px solid transparent;
+  border-right: 6px solid var(--signal-tooltip-bg);
+  border-bottom: 5px solid transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 80ms ease;
+}
+
+.rail-tip:hover::after,
+.rail-tip:hover::before,
+.rail-tip:focus-visible::after,
+.rail-tip:focus-visible::before {
+  opacity: 1;
+}
+
+.message-quote {
+  margin: 2px 0 5px;
+  border-radius: 6px;
+  padding: 3px 7px;
+  text-align: left;
+}
+
+.message-quote-in {
+  border-left: 3px solid var(--signal-blue);
+  background: var(--signal-quote-in-bg);
+  color: var(--signal-muted);
+}
+
+.message-quote-out {
+  border-left: 3px solid rgb(255 255 255 / 70%);
+  background: rgb(255 255 255 / 16%);
+  color: rgb(255 255 255 / 88%);
+}
+
+.tabs-chip {
+  height: 1.75rem;
+  border-radius: 6px;
+  background: var(--signal-selected);
+  padding: 0 10px;
+  font-size: 13px;
+  color: var(--signal-text);
+}
+
+.tabs-chip:hover {
+  background: var(--signal-hover);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--signal-blue);
+  outline-offset: 1px;
+}
+
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}

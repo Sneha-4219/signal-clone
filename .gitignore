@@ -1,0 +1,32 @@
+# Python
+backend/.venv/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# SQLite runtime (created by API startup / seed)
+backend/signal.db
+backend/*.db-journal
+backend/*.db-wal
+backend/*.db-shm
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/coverage/
+
+# Secrets / env
+.env
+.env.*
+!.env.example
+
+# Local cookie dumps / scratch files
+frontend/sneha.txt
+frontend/priya.txt
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/

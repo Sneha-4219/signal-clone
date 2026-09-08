@@ -1,0 +1,1 @@
+"""Persistent messaging REST API."""
