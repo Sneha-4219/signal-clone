@@ -21,6 +21,8 @@ frontend/coverage/
 .env
 .env.*
 !.env.example
+!backend/.env.example
+!frontend/.env.example
 
 # Local cookie dumps / scratch files
 frontend/sneha.txt

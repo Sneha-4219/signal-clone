@@ -383,7 +383,40 @@ signal-clone/
 
 ## GitHub / deployment
 
-Not documented here. Hosting, repository URL, and production credentials will be added when they exist.
+Source: [https://github.com/Sneha-4219/signal-clone](https://github.com/Sneha-4219/signal-clone)
+
+**Local behavior is unchanged** when these variables are unset.
+
+### Backend (Render)
+
+Root directory: `backend`  
+Build: `pip install -r requirements.txt`  
+Start: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`  
+(or the `Procfile` in `backend/`)
+
+Environment:
+
+| Variable | Purpose |
+| --- | --- |
+| `FRONTEND_ORIGIN` | Vercel origin, e.g. `https://your-app.vercel.app` (comma-separated if needed) |
+| `COOKIE_SECURE` | `true` so the session cookie is `Secure; SameSite=None` (required for Vercel ↔ Render cookies) |
+| `DATABASE_PATH` | Optional SQLite file path (default `backend/signal.db`) |
+
+SQLite on Render’s free disk is ephemeral unless a persistent disk is attached.
+
+### Frontend (Vercel)
+
+Root directory: `frontend`  
+Framework: Next.js  
+Build: `npm run build`  
+Install: `npm install`
+
+Environment (build-time `NEXT_PUBLIC_*`):
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_API_BASE` | Render HTTPS API URL, e.g. `https://signal-clone-api.onrender.com` |
+| `NEXT_PUBLIC_WS_BASE` | Optional; defaults to `wss://` derived from the API URL |
 
 ---
 

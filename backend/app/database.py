@@ -1,14 +1,13 @@
 """SQLite database configuration for the Signal Clone API."""
 
 from collections.abc import Generator
-from pathlib import Path
 
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
-# backend/signal.db — resolved from this file so the path is cwd-independent.
-BACKEND_DIR = Path(__file__).resolve().parent.parent
-DATABASE_PATH = BACKEND_DIR / "signal.db"
+from app.settings import database_file
+
+DATABASE_PATH = database_file()
 DATABASE_URL = f"sqlite:///{DATABASE_PATH.as_posix()}"
 
 engine = create_engine(
@@ -36,6 +35,7 @@ def init_db() -> None:
     """Create all tables if they do not already exist."""
     from app import models  # noqa: F401 — register models on Base.metadata
 
+    DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
     Base.metadata.create_all(bind=engine)
 
 

@@ -10,6 +10,7 @@ from app.contacts.router import router as contacts_router
 from app.conversations.router import router as conversations_router
 from app.database import init_db
 from app.messages.router import router as messages_router
+from app.settings import cors_origins
 from app.websocket.router import router as websocket_router
 
 
@@ -27,13 +28,10 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Next.js frontend runs on localhost:3000 during local development.
+# Local Next.js origins always allowed; FRONTEND_ORIGIN adds Vercel in production.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-    ],
+    allow_origins=cors_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -1,7 +1,21 @@
 "use client";
 
-const API_BASE = "http://127.0.0.1:8000";
-export const WS_BASE = "ws://127.0.0.1:8000";
+const API_BASE =
+  (process.env.NEXT_PUBLIC_API_BASE ?? "http://127.0.0.1:8000").replace(/\/$/, "");
+
+function wsBaseFromApi(apiBase: string): string {
+  if (apiBase.startsWith("https://")) {
+    return `wss://${apiBase.slice("https://".length)}`;
+  }
+  if (apiBase.startsWith("http://")) {
+    return `ws://${apiBase.slice("http://".length)}`;
+  }
+  return "ws://127.0.0.1:8000";
+}
+
+export const WS_BASE = (
+  process.env.NEXT_PUBLIC_WS_BASE ?? wsBaseFromApi(API_BASE)
+).replace(/\/$/, "");
 
 function browserFetch(input: string, init: RequestInit): Promise<Response> {
   // Next.js patches the module-level `fetch` during App Router prerender and can

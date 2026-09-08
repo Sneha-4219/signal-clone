@@ -16,6 +16,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models import AuthSession, User
+from app.settings import session_cookie_flags
 
 # Mocked development OTP — not delivered over SMS.
 FIXED_OTP = "123456"
@@ -70,16 +71,13 @@ def set_session_cookie(response: Response, auth_session: AuthSession) -> None:
     response.set_cookie(
         key=SESSION_COOKIE_NAME,
         value=auth_session.session_token,
-        httponly=True,
-        samesite="lax",
-        secure=False,
-        path="/",
         max_age=int(SESSION_TTL.total_seconds()),
+        **session_cookie_flags(),
     )
 
 
 def clear_session_cookie(response: Response) -> None:
-    response.delete_cookie(key=SESSION_COOKIE_NAME, path="/")
+    response.delete_cookie(key=SESSION_COOKIE_NAME, **session_cookie_flags())
 
 
 def get_valid_auth_session(db: Session, token: str | None) -> AuthSession | None:
